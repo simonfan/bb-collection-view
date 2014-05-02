@@ -1,34 +1,39 @@
 require.config({
-	// cache busting
-	urlArgs: 'bust=' + Math.random(),
-	// base url is the root.
+	urlArgs: 'bust=0.004732795059680939',
 	baseUrl: '/src',
-	// remember: paths are relative to the / root.
 	paths: {
-		requirejs: '../bower_components/requirejs/requirejs',
+		requirejs: '../bower_components/requirejs/require',
 		text: '../bower_components/requirejs-text/text',
-
 		mocha: '../node_modules/mocha/mocha',
 		should: '../node_modules/should/should',
-
-		// the module
 		'bb-collection-view': 'index',
+		backbone: '../bower_components/backbone/backbone',
+		jquery: '../bower_components/jquery/dist/jquery',
+		'lowercase-backbone': '../bower_components/lowercase-backbone/built/lowercase-backbone',
+		qunit: '../bower_components/qunit/qunit/qunit',
+		lodash: '../bower_components/lodash/dist/lodash.compat',
+		subject: '../bower_components/subject/built/subject',
+		'requirejs-text': '../bower_components/requirejs-text/text',
+		underscore: '../bower_components/underscore/underscore',
+		'bb-dock': '../bower_components/bb-dock/built/bb-dock',
+		q: '../bower_components/q/q'
 	},
-
-	// predefined shims... (we already know they are needed)
 	shim: {
 		backbone: {
 			exports: 'Backbone',
-			deps: ['jquery', 'underscore'],
+			deps: [
+				'jquery',
+				'underscore'
+			]
 		},
 		underscore: {
-			exports: '_',
+			exports: '_'
 		},
 		mocha: {
-			exports: 'mocha',
+			exports: 'mocha'
 		},
 		should: {
 			exports: 'should'
 		}
-	},
+	}
 });

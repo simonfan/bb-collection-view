@@ -1,0 +1,334 @@
+{
+    "project": {
+        "name": "bb-collection-view",
+        "version": "0.0.0"
+    },
+    "files": {
+        "src/__bb-collection-view/item/build.js": {
+            "name": "src/__bb-collection-view/item/build.js",
+            "modules": {
+                "item": 1
+            },
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/__bb-collection-view/item/storage.js": {
+            "name": "src/__bb-collection-view/item/storage.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/__bb-collection-view/event-handlers.js": {
+            "name": "src/__bb-collection-view/event-handlers.js",
+            "modules": {
+                "event-hanlders": 1
+            },
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/__bb-collection-view/iterators.js": {
+            "name": "src/__bb-collection-view/iterators.js",
+            "modules": {
+                "proxy": 1
+            },
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/index.js": {
+            "name": "src/index.js",
+            "modules": {
+                "bb-collection-view": 1
+            },
+            "classes": {
+                "collectionDock": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {
+        "collection-dock": {
+            "name": "collection-dock",
+            "submodules": {
+                "item": 1,
+                "event-hanlders": 1,
+                "proxy": 1
+            },
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "item": {
+            "name": "item",
+            "submodules": {},
+            "classes": {},
+            "fors": {},
+            "is_submodule": 1,
+            "namespaces": {},
+            "module": "collection-dock",
+            "namespace": "",
+            "file": "src/__bb-collection-view/item/build.js",
+            "line": 1,
+            "description": "Defines methods that generate item-related templates and data.\nMethods here should be overwritten for custom behaviour."
+        },
+        "event-hanlders": {
+            "name": "event-hanlders",
+            "submodules": {},
+            "classes": {},
+            "fors": {},
+            "is_submodule": 1,
+            "namespaces": {},
+            "module": "collection-dock",
+            "namespace": "",
+            "file": "src/__bb-collection-view/event-handlers.js",
+            "line": 1,
+            "description": "Defines the event handler for 'add' events on the collection."
+        },
+        "proxy": {
+            "name": "proxy",
+            "submodules": {},
+            "classes": {},
+            "fors": {},
+            "is_submodule": 1,
+            "namespaces": {},
+            "module": "collection-dock",
+            "namespace": "",
+            "file": "src/__bb-collection-view/iterators.js",
+            "line": 1,
+            "description": "Proxies methods to the collection, if it is present."
+        },
+        "bb-collection-view": {
+            "name": "bb-collection-view",
+            "submodules": {},
+            "classes": {
+                "collectionDock": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "src/index.js",
+            "line": 18,
+            "description": "Object that connects data to the html."
+        }
+    },
+    "classes": {
+        "collectionDock": {
+            "name": "collectionDock",
+            "shortname": "collectionDock",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "bb-collection-view",
+            "namespace": "",
+            "file": "src/index.js",
+            "line": 18,
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "extensions",
+                    "description": "",
+                    "type": "Object"
+                }
+            ]
+        }
+    },
+    "classitems": [
+        {
+            "file": "src/__bb-collection-view/item/build.js",
+            "line": 41,
+            "description": "Must return an view object with a 'remove' method.\nThe itemView is responsible for actions",
+            "class": "collectionDock",
+            "module": "collection-dock",
+            "submodule": "item"
+        },
+        {
+            "file": "src/__bb-collection-view/item/build.js",
+            "line": 51,
+            "description": "Builds the itemvieW.",
+            "itemtype": "method",
+            "name": "buildItemView",
+            "params": [
+                {
+                    "name": "options",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "class": "collectionDock",
+            "module": "collection-dock",
+            "submodule": "item"
+        },
+        {
+            "file": "src/__bb-collection-view/item/storage.js",
+            "line": 18,
+            "description": "Retrieves the view object at a given index.",
+            "itemtype": "method",
+            "name": "at",
+            "params": [
+                {
+                    "name": "index",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "class": "collectionDock",
+            "module": "collection-dock",
+            "submodule": "item"
+        },
+        {
+            "file": "src/__bb-collection-view/item/storage.js",
+            "line": 28,
+            "description": "Removes the view from the 'byIndex' array\nAND invokes the view's 'remove' method.",
+            "itemtype": "method",
+            "name": "removeViewAt",
+            "params": [
+                {
+                    "name": "index",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "class": "collectionDock",
+            "module": "collection-dock",
+            "submodule": "item"
+        },
+        {
+            "file": "src/__bb-collection-view/item/storage.js",
+            "line": 46,
+            "description": "Retrieves the view for a given model/mcid",
+            "itemtype": "method",
+            "name": "getView",
+            "params": [
+                {
+                    "name": "mcid",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "class": "collectionDock",
+            "module": "collection-dock",
+            "submodule": "item"
+        },
+        {
+            "file": "src/__bb-collection-view/item/storage.js",
+            "line": 59,
+            "description": "Deletes the view for a given model/mcid from the byIndex hash.",
+            "itemtype": "method",
+            "name": "getView",
+            "params": [
+                {
+                    "name": "mcid",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "class": "collectionDock",
+            "module": "collection-dock",
+            "submodule": "item"
+        },
+        {
+            "file": "src/__bb-collection-view/event-handlers.js",
+            "line": 14,
+            "description": "Handles add events on the collection.",
+            "itemtype": "method",
+            "name": "handleAdd",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "model",
+                    "description": "",
+                    "type": "Model Object"
+                }
+            ],
+            "class": "collectionDock",
+            "module": "collection-dock",
+            "submodule": "event-hanlders"
+        },
+        {
+            "file": "src/__bb-collection-view/event-handlers.js",
+            "line": 25,
+            "description": "Handles remove events on the collection.",
+            "itemtype": "method",
+            "name": "handleRemove",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "model",
+                    "description": "",
+                    "type": "Model Object"
+                }
+            ],
+            "class": "collectionDock",
+            "module": "collection-dock",
+            "submodule": "event-hanlders"
+        },
+        {
+            "file": "src/__bb-collection-view/event-handlers.js",
+            "line": 36,
+            "description": "Handles reset events on the collection.",
+            "itemtype": "method",
+            "name": "handleReset",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "model",
+                    "description": "",
+                    "type": "Model Object"
+                }
+            ],
+            "class": "collectionDock",
+            "module": "collection-dock",
+            "submodule": "event-hanlders"
+        },
+        {
+            "file": "src/__bb-collection-view/event-handlers.js",
+            "line": 54,
+            "description": "Handles resort events on the collection.",
+            "itemtype": "method",
+            "name": "handleResort",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "model",
+                    "description": "",
+                    "type": "Model Object"
+                }
+            ],
+            "class": "collectionDock",
+            "module": "collection-dock",
+            "submodule": "event-hanlders"
+        },
+        {
+            "file": "src/index.js",
+            "line": 36,
+            "description": "Initialization logic for collectionDock",
+            "itemtype": "method",
+            "name": "initializeCollectionView",
+            "params": [
+                {
+                    "name": "options",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "class": "collectionDock",
+            "module": "bb-collection-view"
+        }
+    ],
+    "warnings": [
+        {
+            "message": "Missing item type\nMust return an view object with a 'remove' method.\nThe itemView is responsible for actions",
+            "line": " src/__bb-collection-view/item/build.js:41"
+        }
+    ]
+}
