@@ -108,7 +108,7 @@ define(function (require, exports, module) {
 	var _ = require(&#x27;lodash&#x27;);
 
 	// events
-	exports.onViews = function onViews() {
+	exports.onItemViews = function onItemViews() {
 		var args = Array.prototype.slice.call(arguments);
 
 		_.each(this.byIndex, function (view) {

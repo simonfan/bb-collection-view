@@ -111,7 +111,7 @@
             "namespaces": {},
             "tag": "module",
             "file": "src/index.js",
-            "line": 18,
+            "line": 17,
             "description": "Object that connects data to the html."
         }
     },
@@ -127,7 +127,7 @@
             "module": "bb-collection-view",
             "namespace": "",
             "file": "src/index.js",
-            "line": 18,
+            "line": 17,
             "is_constructor": 1,
             "params": [
                 {
@@ -200,7 +200,7 @@
         },
         {
             "file": "src/__bb-collection-view/item/storage.js",
-            "line": 46,
+            "line": 48,
             "description": "Retrieves the view for a given model/mcid",
             "itemtype": "method",
             "name": "getView",
@@ -217,7 +217,7 @@
         },
         {
             "file": "src/__bb-collection-view/item/storage.js",
-            "line": 59,
+            "line": 61,
             "description": "Deletes the view for a given model/mcid from the byIndex hash.",
             "itemtype": "method",
             "name": "getView",
@@ -253,7 +253,7 @@
         },
         {
             "file": "src/__bb-collection-view/event-handlers.js",
-            "line": 25,
+            "line": 26,
             "description": "Handles remove events on the collection.",
             "itemtype": "method",
             "name": "handleRemove",
@@ -272,7 +272,7 @@
         },
         {
             "file": "src/__bb-collection-view/event-handlers.js",
-            "line": 36,
+            "line": 37,
             "description": "Handles reset events on the collection.",
             "itemtype": "method",
             "name": "handleReset",
@@ -291,7 +291,7 @@
         },
         {
             "file": "src/__bb-collection-view/event-handlers.js",
-            "line": 54,
+            "line": 55,
             "description": "Handles resort events on the collection.",
             "itemtype": "method",
             "name": "handleResort",
@@ -310,7 +310,7 @@
         },
         {
             "file": "src/index.js",
-            "line": 36,
+            "line": 35,
             "description": "Initialization logic for collectionDock",
             "itemtype": "method",
             "name": "initializeCollectionView",

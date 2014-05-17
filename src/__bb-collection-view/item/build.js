@@ -62,7 +62,7 @@ define(function (require, exports, module) {
 			$el = $(html);
 
 		// [2] get index
-		var index = this.dock.indexOf(model);
+		var index = this.collection.indexOf(model);
 
 		// [3] place
 		this.itemAppend(index, $el);
@@ -73,7 +73,7 @@ define(function (require, exports, module) {
 			el: $el,
 			model: model,
 			index: index,
-			collection: this.dock.collection,
+			collection: this.collection,
 			collectionView: this,
 		});
 

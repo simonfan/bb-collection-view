@@ -1,8 +1,3 @@
-//     bb-dock
-//     (c) simonfan
-//     bb-dock is licensed under the MIT terms.
-
-define("bb-dock",["require","exports","module","lodash","subject","backbone"],function(t,e,i){var a=t("lodash"),n=t("subject"),r=t("backbone"),s=i.exports=n({initialize:function(t){this.initializeBbDock(t)},initializeBbDock:function(t){t&&t.attach&&this.attach(t.attach)},invoke:function(t){if(this.attachment){var e=Array.prototype.slice.call(arguments,1);return this.attachment[t].apply(this.attachment,e)}throw new Error("No attachment attached to dock. Unable to invoke "+t)},retrieve:function(t){if(this.attachment)return this.attachment[t];throw new Error("No attachment attached to dock. Unable to retrieve "+t)},attach:function(t,e){return this.detach(),this.attachment=t,this.listenTo(t,"all",this.trigger),e&&e.silent||this.trigger("attach",t),this},detach:function(t){if(this.attachment){var e=this.attachment;this.stopListening(e),delete this.attachment,t&&t.silent||this.trigger("detach",e)}return this}});s.extendProxyMethods=function(t){var e={};return a.each(t,function(t){e[t]=a.partial(s.prototype.invoke,t)}),this.extend(e)},s.proto(r.Events);var o=s.extendProxyMethods(["get","set","escape","has","unset","clear","toJSON","sync","fetch","save","destroy","validate","isValid","url","parse","clone","isNew","hasChanged","changedAttributes","previous","previousAttributes","keys","values","pairs","invert","pick","omit"]);s.model=o;var c=s.extendProxyMethods(["toJSON","sync","add","remove","reset","set","get","at","push","pop","unshift","shift","slice","sort","pluck","where","findWhere","parse","clone","fetch","create","forEach","each","map","collect","reduce","foldl","inject","reduceRight","foldr","find","detect","filter","select","reject","every","all","some","any","include","contains","invoke","max","min","toArray","size","first","head","take","initial","rest","tail","drop","last","without","difference","indexOf","shuffle","lastIndexOf","isEmpty","chain","sample","partition"]);s.collection=c});
 /**
  * Proxies methods to the collection, if it is present.
  *
@@ -15,7 +10,7 @@ define('__bb-collection-view/iterators',['require','exports','module','lodash'],
 	var _ = require('lodash');
 
 	// events
-	exports.onViews = function onViews() {
+	exports.onItemViews = function onItemViews() {
 		var args = Array.prototype.slice.call(arguments);
 
 		_.each(this.byIndex, function (view) {
@@ -70,7 +65,8 @@ define('__bb-collection-view/event-handlers',['require','exports','module','loda
 	 * @param model {model Object}
 	 */
 	exports.handleAdd = function handleAdd(model) {
-		var view = this.buildItemView(model);
+
+		this.buildItemView(model);
 	};
 
 	/**
@@ -94,11 +90,11 @@ define('__bb-collection-view/event-handlers',['require','exports','module','loda
 	exports.handleReset = function handleReset(collection, options) {
 
 		// This is just to be faster: remove everything at once!
-		this.$container.html('');
+		this.$el.html('');
 
-		this.collection.each(this.handleRemove);
+		collection.each(this.handleRemove);
 
-		this.collection.each(this.handleAdd);
+		collection.each(this.handleAdd);
 	};
 
 
@@ -110,7 +106,7 @@ define('__bb-collection-view/event-handlers',['require','exports','module','loda
 	 * @param model {model Object}
 	 */
 	exports.handleResort = function handleResort(collection, options) {
-		this.handleReset(collection, this.$container);
+		this.handleReset(collection, options);
 	};
 
 });
@@ -137,7 +133,7 @@ define('__bb-collection-view/item/build',['require','exports','module','lodash',
 	exports.itemAppend = function itemAppend(index, $el) {
 
 		// get the view that represents the model before this one.
-		var viewBefore = this.collectionView.getViewAt(index - 1);
+		var viewBefore = this.getViewAt(index - 1);
 
 		if (viewBefore) {
 			// if htere is a view before,
@@ -147,7 +143,7 @@ define('__bb-collection-view/item/build',['require','exports','module','lodash',
 		} else {
 			// otherwise, the collectionView is still empty,
 			// thus just append to the container
-			$el.appendTo(this.collectionView.$container);
+			$el.appendTo(this.$el);
 
 		}
 
@@ -179,7 +175,7 @@ define('__bb-collection-view/item/build',['require','exports','module','lodash',
 			$el = $(html);
 
 		// [2] get index
-		var index = this.dock.indexOf(view.model);
+		var index = this.collection.indexOf(model);
 
 		// [3] place
 		this.itemAppend(index, $el);
@@ -190,7 +186,7 @@ define('__bb-collection-view/item/build',['require','exports','module','lodash',
 			el: $el,
 			model: model,
 			index: index,
-			collection: this.dock.collection,
+			collection: this.collection,
 			collectionView: this,
 		});
 
@@ -240,7 +236,9 @@ define('__bb-collection-view/item/storage',['require','exports','module','lodash
 		var removed = this.byIndex.splice(index, 1)[0];
 
 		// invoke the remove method if present
-		removed.remove();
+		if (removed) {
+			removed.remove();
+		}
 
 		return this;
 	};
@@ -287,19 +285,18 @@ define('__bb-collection-view/item/storage',['require','exports','module','lodash
  * @module bb-collection-view
  */
 
-define('bb-collection-view',['require','exports','module','lodash','lowercase-backbone','bb-dock','./__bb-collection-view/iterators','./__bb-collection-view/event-handlers','./__bb-collection-view/item/build','./__bb-collection-view/item/storage'],function (require, exports, module) {
+define('bb-collection-view',['require','exports','module','lodash','lowercase-backbone','./__bb-collection-view/iterators','./__bb-collection-view/event-handlers','./__bb-collection-view/item/build','./__bb-collection-view/item/storage'],function (require, exports, module) {
 	
 
 	var _ = require('lodash'),
-		backbone = require('lowercase-backbone'),
-		collectionDock = require('bb-dock').collection;
+		backbone = require('lowercase-backbone');
 
 	/**
 	 * @class collectionDock
 	 * @constructor
 	 * @param extensions {Object}
 	 */
-	var dock = module.exports = backbone.view.extend({
+	var bbCollectionView = module.exports = backbone.view.extend({
 		initialize: function (options) {
 
 			// initialize basic view
@@ -328,27 +325,25 @@ define('bb-collection-view',['require','exports','module','lodash','lowercase-ba
 			// views by index
 			this.byIndex = [];
 
-			// BUILD DOCK
-			var dock = this.dock = options.dock || collectionDock();
+			// Make sure there is a collection
+			var collection = this.collection = options.collection || backbone.collection();
 
 			// events
-			this.listenTo(dock, 'add', this.handleAdd)
-				.listenTo(dock, 'remove', this.handleRemove)
-				.listenTo(dock, 'reset', this.handleReset)
-				.listenTo(this.resortEvent, this.handleResort);
+			_.bindAll(this, 'handleAdd', 'handleRemove', 'handleReset', 'handleResort');
+			this.listenTo(collection, 'add', this.handleAdd)
+				.listenTo(collection, 'remove', this.handleRemove)
+				.listenTo(collection, 'reset', this.handleReset)
+				.listenTo(collection, this.resortEvent, this.handleResort);
 
-			// [4] start.
-			if (typeof options.collection === 'object') {
-				dock.attach(options.collection);
-			}
+			this.handleReset(collection);
 		},
 	});
 
-	dock.proto(require('./__bb-collection-view/iterators'));
+	bbCollectionView.proto(require('./__bb-collection-view/iterators'));
 
 
-	dock.proto(require('./__bb-collection-view/event-handlers'));
-	dock.proto(require('./__bb-collection-view/item/build'));
-	dock.proto(require('./__bb-collection-view/item/storage'));
+	bbCollectionView.proto(require('./__bb-collection-view/event-handlers'));
+	bbCollectionView.proto(require('./__bb-collection-view/item/build'));
+	bbCollectionView.proto(require('./__bb-collection-view/item/storage'));
 });
 

@@ -16,7 +16,8 @@ require.config({
 		'requirejs-text': '../bower_components/requirejs-text/text',
 		underscore: '../bower_components/underscore/underscore',
 		'bb-dock': '../bower_components/bb-dock/built/bb-dock',
-		q: '../bower_components/q/q'
+		q: '../bower_components/q/q',
+		dock: '../bower_components/dock/built/dock'
 	},
 	shim: {
 		backbone: {

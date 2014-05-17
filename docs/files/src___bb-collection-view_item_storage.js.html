@@ -134,7 +134,9 @@ define(function (require, exports, module) {
 		var removed = this.byIndex.splice(index, 1)[0];
 
 		// invoke the remove method if present
-		removed.remove();
+		if (removed) {
+			removed.remove();
+		}
 
 		return this;
 	};

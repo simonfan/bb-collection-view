@@ -117,7 +117,8 @@ define(function (require, exports, module) {
 	 * @param model {model Object}
 	 */
 	exports.handleAdd = function handleAdd(model) {
-		var view = this.buildItemView(model);
+
+		this.buildItemView(model);
 	};
 
 	/**
@@ -141,11 +142,11 @@ define(function (require, exports, module) {
 	exports.handleReset = function handleReset(collection, options) {
 
 		// This is just to be faster: remove everything at once!
-		this.$container.html(&#x27;&#x27;);
+		this.$el.html(&#x27;&#x27;);
 
-		this.collection.each(this.handleRemove);
+		collection.each(this.handleRemove);
 
-		this.collection.each(this.handleAdd);
+		collection.each(this.handleAdd);
 	};
 
 
@@ -157,7 +158,7 @@ define(function (require, exports, module) {
 	 * @param model {model Object}
 	 */
 	exports.handleResort = function handleResort(collection, options) {
-		this.handleReset(collection, this.$container);
+		this.handleReset(collection, options);
 	};
 
 });

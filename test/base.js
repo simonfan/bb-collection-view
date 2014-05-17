@@ -6,7 +6,7 @@
 		// browser
 		'bb-collection-view',
 		// dependencies for the test
-		deps = [mod, 'should', 'jquery', 'backbone', 'q'];
+		deps = [mod, 'should', 'jquery', 'backbone'];
 
 	if (typeof define !== 'function') {
 		// node
@@ -16,7 +16,7 @@
 		define(deps, factory);
 	}
 
-})('test', function(collectionView, should, $, Backbone, Q) {
+})('test', function(collectionView, should, $, Backbone) {
 	'use strict';
 
 	describe('collectionView', function () {
@@ -37,16 +37,18 @@
 			view.should.be.type('object');
 		});
 
-		it('presents attached collections on attachment', function (done) {
+		it('presents collection items on initialization', function (done) {
 
-			var view = collectionView({ el: this.$fixture });
 
 			var fruits = new Backbone.Collection([
 				{ name: 'Banana', id: 0 },
 				{ name: 'Apple', id: 2 }
 			]);
 
-			view.attach(fruits);
+			var view = collectionView({
+				el: this.$fixture,
+				collection: fruits
+			});
 
 			setTimeout(_.bind(function () {
 				this.$fixture.children().length.should.eql(2);
@@ -96,11 +98,12 @@
 
 			it('handles adding', function () {
 
-				var d = this.view;
-
 				var fruits = new Backbone.Collection();
 
-				d.attach(fruits);
+				var d = collectionView({
+					el: this.$fixture,
+					collection: fruits,
+				});
 
 				// add a model on the collection
 				fruits.add({
@@ -132,12 +135,12 @@
 		 */
 		describe('handleRemove', function () {
 			beforeEach(function (done) {
-				this.view = collectionView({ el: this.$fixture });
-
 				this.fruits = new Backbone.Collection();
 
-				// attach
-				this.view.attach(this.fruits);
+				this.view = collectionView({
+					el: this.$fixture,
+					collection: this.fruits
+				});
 
 				// add
 				this.fruits.add([

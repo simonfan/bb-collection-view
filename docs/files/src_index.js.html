@@ -110,15 +110,14 @@ define(function (require, exports, module) {
 	&#x27;use strict&#x27;;
 
 	var _ = require(&#x27;lodash&#x27;),
-		backbone = require(&#x27;lowercase-backbone&#x27;),
-		collectionDock = require(&#x27;bb-dock&#x27;).collection;
+		backbone = require(&#x27;lowercase-backbone&#x27;);
 
 	/**
 	 * @class collectionDock
 	 * @constructor
 	 * @param extensions {Object}
 	 */
-	var dock = module.exports = backbone.view.extend({
+	var bbCollectionView = module.exports = backbone.view.extend({
 		initialize: function (options) {
 
 			// initialize basic view
@@ -147,28 +146,26 @@ define(function (require, exports, module) {
 			// views by index
 			this.byIndex = [];
 
-			// BUILD DOCK
-			var dock = this.dock = options.dock || collectionDock();
+			// Make sure there is a collection
+			var collection = this.collection = options.collection || backbone.collection();
 
 			// events
-			this.listenTo(dock, &#x27;add&#x27;, this.handleAdd)
-				.listenTo(dock, &#x27;remove&#x27;, this.handleRemove)
-				.listenTo(dock, &#x27;reset&#x27;, this.handleReset)
-				.listenTo(this.resortEvent, this.handleResort);
+			_.bindAll(this, &#x27;handleAdd&#x27;, &#x27;handleRemove&#x27;, &#x27;handleReset&#x27;, &#x27;handleResort&#x27;);
+			this.listenTo(collection, &#x27;add&#x27;, this.handleAdd)
+				.listenTo(collection, &#x27;remove&#x27;, this.handleRemove)
+				.listenTo(collection, &#x27;reset&#x27;, this.handleReset)
+				.listenTo(collection, this.resortEvent, this.handleResort);
 
-			// [4] start.
-			if (typeof options.collection === &#x27;object&#x27;) {
-				dock.attach(options.collection);
-			}
+			this.handleReset(collection);
 		},
 	});
 
-	dock.proto(require(&#x27;./__bb-collection-view/iterators&#x27;));
+	bbCollectionView.proto(require(&#x27;./__bb-collection-view/iterators&#x27;));
 
 
-	dock.proto(require(&#x27;./__bb-collection-view/event-handlers&#x27;));
-	dock.proto(require(&#x27;./__bb-collection-view/item/build&#x27;));
-	dock.proto(require(&#x27;./__bb-collection-view/item/storage&#x27;));
+	bbCollectionView.proto(require(&#x27;./__bb-collection-view/event-handlers&#x27;));
+	bbCollectionView.proto(require(&#x27;./__bb-collection-view/item/build&#x27;));
+	bbCollectionView.proto(require(&#x27;./__bb-collection-view/item/storage&#x27;));
 });
 
     </pre>

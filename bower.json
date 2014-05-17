@@ -1,17 +1,22 @@
 {
   "name": "bb-collection-view",
   "main": "built/bb-collection-view.js",
-  "version": "0.0.0",
+  "version": "0.5.4",
   "description": "Some module...",
   "dependencies": {
     "lowercase-backbone": "~0.2.5",
-    "q": "~2.0.0"
+    "lodash": "~2.4.1",
+    "jquery": "~2.1.1"
   },
   "devDependencies": {
     "requirejs": "*",
     "requirejs-text": "*",
     "underscore": "*",
     "jquery": "*",
-    "qunit": "*"
+    "qunit": "*",
+    "bb-dock": "~0.7.9"
+  },
+  "resolutions": {
+    "subject": "0.5.6"
   }
 }
