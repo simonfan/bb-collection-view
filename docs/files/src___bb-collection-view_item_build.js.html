@@ -112,7 +112,11 @@ define(function (require, exports, module) {
 		backbone = require(&#x27;lowercase-backbone&#x27;);
 
 
-	exports.itemTemplate = &#x27;&lt;div&gt;&lt;/div&gt;&#x27;;
+		// view that instantiates multiple views.
+	var multiView = require(&#x27;./multi-view&#x27;);
+
+
+	exports.itemTemplate = &#x27;&lt;div&gt;bb-collection-view item replace &quot;itemTemplate&quot; property&lt;/div&gt;&#x27;;
 
 
 	exports.itemAppend = function itemAppend(index, $el) {
@@ -134,17 +138,11 @@ define(function (require, exports, module) {
 
 	};
 
-
-
 	/**
 	 * Must return an view object with a &#x27;remove&#x27; method.
 	 * The itemView is responsible for actions
 	 */
 	exports.itemView = backbone.view;
-
-
-
-
 
 	/**
 	 * Builds the itemvieW.
@@ -167,13 +165,34 @@ define(function (require, exports, module) {
 
 
 		// [4] build the view
-		var view = this.itemView({
-			el: $el,
-			model: model,
-			index: index,
-			collection: this.collection,
-			collectionView: this,
-		});
+		// [4.1] build view options
+		var viewOptions = {
+			el             : $el,
+			model          : model,
+			index          : index,
+			collection     : this.collection,
+			collectionView : this,
+		};
+
+		// [4.2] if &#x27;this.itemView&#x27; is set as an array,
+		//       instantiate all views.
+		var builder = this.itemView,
+			// var to hold the view.
+			view;
+
+		if (_.isFunction(builder)) {
+			// instantiate
+			view = builder(viewOptions);
+
+		} else if (_.isArray(builder)) {
+
+			// instantiate multiple
+			view = multiView(viewOptions, builder);
+
+			// set a special &#x27;remove&#x27; method that invokes the remove method
+			// of all the subviews
+		}
+
 
 		// [5] store
 		this.byIndex.splice(index, 0, view);

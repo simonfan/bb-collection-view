@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>src/__bb-collection-view/item/storage.js - bb-collection-view</title>
+    <title>src/__bb-collection-view/item/multi-view.js - bb-collection-view</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -92,96 +92,49 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1 class="file-heading">File: src/__bb-collection-view/item/storage.js</h1>
+                        <h1 class="file-heading">File: src/__bb-collection-view/item/multi-view.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
-/**
- * Defines methods that generate item-related templates and data.
- * Methods here should be overwritten for custom behaviour.
- *
- * @module collection-dock
- * @submodule item
- */
 define(function (require, exports, module) {
-	&#x27;use strict&#x27;;
 
-	// external
-	var _ = require(&#x27;lodash&#x27;),
-		q = require(&#x27;q&#x27;);
+	var backbone = require(&#x27;lowercase-backbone&#x27;),
+		q        = require(&#x27;q&#x27;);
 
+	module.exports = backbone.view.extend({
+		/**
+		 * Takes an options hash and an array of views.
+		 *
+		 * @method initialize
+		 * @param  {[type]} options  [description]
+		 * @param  {[type]} subviews [description]
+		 * @return {[type]}          [description]
+		 */
+		initialize: function initializeMultiView(options, subviews) {
 
+			// initialize normal backbone.view
+			backbone.view.prototype.initialize.call(this, options);
 
-	// STORAGE
+			this.subviews = _.map(subviews, function (view, index) {
+				return view(options);
+			});
+		},
 
-	/**
-	 * Retrieves the view object at a given index.
-	 *
-	 * @method at
-	 * @param index {Number}
-	 */
-	exports.getViewAt = function getViewAt(index) {
-		return this.byIndex[index];
-	};
+		/**
+		 * Invokes the removal method
+		 * for all the subviews
+		 * @method remove
+		 * @return {[type]} [description]
+		 */
+		remove: function removeMultiViews() {
 
-	/**
-	 * Removes the view from the &#x27;byIndex&#x27; array
-	 * AND invokes the view&#x27;s &#x27;remove&#x27; method.
-	 *
-	 * @method removeViewAt
-	 * @param index {Number}
-	 * @return promise [description]
-	 */
-	exports.removeViewAt = function removeViewAt(index) {
-		var removed = this.byIndex.splice(index, 1)[0];
+			var removals = _.map(this.subviews, function (view, index) {
+				return view.remove();
+			});
 
-		// invoke the remove method if present
-		if (removed) {
-			var removal = removed.remove();
-		}
-
-		// always return a promisified object.
-		return q(removal);
-	};
-
-
-
-	/**
-	 * Retrieves the view for a given model/mcid
-	 *
-	 * @method getView
-	 * @param mcid {Number}
-	 */
-	exports.getView = function getView(mcid) {
-		// if mcid is an object,
-		// get the object&#x27;s cid property
-		mcid = _.isObject(mcid) ? mcid.cid : mcid;
-
-		return _.find(this.byIndex, function (view) {
-			return view.model.cid === mcid;
-		});
-	};
-
-
-	/**
-	 * Deletes the view for a given model/mcid from the byIndex hash.
-	 *
-	 * @method getView
-	 * @param mcid {Number}
-	 */
-	exports.removeView = function removeView(mcid) {
-
-		// if mcid is an object,
-		// get the object&#x27;s cid property
-		mcid = _.isObject(mcid) ? mcid.cid : mcid;
-
-		var index = _.findIndex(this.byIndex, function (view) {
-			return view.model.cid === mcid;
-		});
-
-		return this.removeViewAt(index);
-	};
-
+			return q.all(removals);
+		},
+	});
 });
 
     </pre>

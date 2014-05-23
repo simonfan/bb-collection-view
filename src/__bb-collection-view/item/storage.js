@@ -9,7 +9,8 @@ define(function (require, exports, module) {
 	'use strict';
 
 	// external
-	var _ = require('lodash');
+	var _ = require('lodash'),
+		q = require('q');
 
 
 
@@ -31,16 +32,18 @@ define(function (require, exports, module) {
 	 *
 	 * @method removeViewAt
 	 * @param index {Number}
+	 * @return promise [description]
 	 */
 	exports.removeViewAt = function removeViewAt(index) {
 		var removed = this.byIndex.splice(index, 1)[0];
 
 		// invoke the remove method if present
 		if (removed) {
-			removed.remove();
+			var removal = removed.remove();
 		}
 
-		return this;
+		// always return a promisified object.
+		return q(removal);
 	};
 
 
@@ -52,6 +55,10 @@ define(function (require, exports, module) {
 	 * @param mcid {Number}
 	 */
 	exports.getView = function getView(mcid) {
+		// if mcid is an object,
+		// get the object's cid property
+		mcid = _.isObject(mcid) ? mcid.cid : mcid;
+
 		return _.find(this.byIndex, function (view) {
 			return view.model.cid === mcid;
 		});
@@ -65,6 +72,10 @@ define(function (require, exports, module) {
 	 * @param mcid {Number}
 	 */
 	exports.removeView = function removeView(mcid) {
+
+		// if mcid is an object,
+		// get the object's cid property
+		mcid = _.isObject(mcid) ? mcid.cid : mcid;
 
 		var index = _.findIndex(this.byIndex, function (view) {
 			return view.model.cid === mcid;

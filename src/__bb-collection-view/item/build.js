@@ -14,7 +14,11 @@ define(function (require, exports, module) {
 		backbone = require('lowercase-backbone');
 
 
-	exports.itemTemplate = '<div></div>';
+		// view that instantiates multiple views.
+	var multiView = require('./multi-view');
+
+
+	exports.itemTemplate = '<div>bb-collection-view item replace "itemTemplate" property</div>';
 
 
 	exports.itemAppend = function itemAppend(index, $el) {
@@ -36,17 +40,11 @@ define(function (require, exports, module) {
 
 	};
 
-
-
 	/**
 	 * Must return an view object with a 'remove' method.
 	 * The itemView is responsible for actions
 	 */
 	exports.itemView = backbone.view;
-
-
-
-
 
 	/**
 	 * Builds the itemvieW.
@@ -67,15 +65,35 @@ define(function (require, exports, module) {
 		// [3] place
 		this.itemAppend(index, $el);
 
-
 		// [4] build the view
-		var view = this.itemView({
-			el: $el,
-			model: model,
-			index: index,
-			collection: this.collection,
-			collectionView: this,
-		});
+		// [4.1] build view options
+		var viewOptions = {
+			el             : $el,
+			model          : model,
+			index          : index,
+			collection     : this.collection,
+			collectionView : this,
+		};
+
+		// [4.2] if 'this.itemView' is set as an array,
+		//       instantiate all views.
+		var builder = this.itemView,
+			// var to hold the view.
+			view;
+
+		if (_.isFunction(builder)) {
+			// instantiate
+			view = builder(viewOptions);
+
+		} else if (_.isArray(builder)) {
+
+			// instantiate multiple
+			view = multiView(viewOptions, builder);
+
+			// set a special 'remove' method that invokes the remove method
+			// of all the subviews
+		}
+
 
 		// [5] store
 		this.byIndex.splice(index, 0, view);
