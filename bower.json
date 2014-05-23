@@ -1,7 +1,7 @@
 {
   "name": "bb-collection-view",
   "main": "built/bb-collection-view.js",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "description": "Some module...",
   "dependencies": {
     "lowercase-backbone": "~0.2.5",

@@ -113,6 +113,11 @@ define(function (require, exports, module) {
 		backbone = require(&#x27;lowercase-backbone&#x27;);
 
 	/**
+	 * Parameters to be set on instantiation
+	 */
+	var instantiationOptionNames = [&#x27;resortEvent&#x27;, &#x27;itemTemplate&#x27;, &#x27;itemView&#x27;];
+
+	/**
 	 * @class collectionDock
 	 * @constructor
 	 * @param extensions {Object}
@@ -128,6 +133,7 @@ define(function (require, exports, module) {
 		},
 
 
+		// the event that triggers resort.
 		resortEvent: &#x27;resort&#x27;,
 
 		/**
@@ -140,8 +146,8 @@ define(function (require, exports, module) {
 
 			options = options || {};
 
-			// the event that triggers resort.
-			this.resortEvent = options.resortEvent || this.resortEvent;
+			// set some options on instantiation
+			_.assign(this, _.pick(options, instantiationOptionNames));
 
 			// views by index
 			this.byIndex = [];

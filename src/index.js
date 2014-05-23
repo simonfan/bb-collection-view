@@ -15,6 +15,11 @@ define(function (require, exports, module) {
 		backbone = require('lowercase-backbone');
 
 	/**
+	 * Parameters to be set on instantiation
+	 */
+	var instantiationOptionNames = ['resortEvent', 'itemTemplate', 'itemView'];
+
+	/**
 	 * @class collectionDock
 	 * @constructor
 	 * @param extensions {Object}
@@ -30,6 +35,7 @@ define(function (require, exports, module) {
 		},
 
 
+		// the event that triggers resort.
 		resortEvent: 'resort',
 
 		/**
@@ -42,8 +48,8 @@ define(function (require, exports, module) {
 
 			options = options || {};
 
-			// the event that triggers resort.
-			this.resortEvent = options.resortEvent || this.resortEvent;
+			// set some options on instantiation
+			_.assign(this, _.pick(options, instantiationOptionNames));
 
 			// views by index
 			this.byIndex = [];

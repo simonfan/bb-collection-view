@@ -292,6 +292,11 @@ define('bb-collection-view',['require','exports','module','lodash','lowercase-ba
 		backbone = require('lowercase-backbone');
 
 	/**
+	 * Parameters to be set on instantiation
+	 */
+	var instantiationOptionNames = ['resortEvent', 'itemTemplate', 'itemView'];
+
+	/**
 	 * @class collectionDock
 	 * @constructor
 	 * @param extensions {Object}
@@ -307,6 +312,7 @@ define('bb-collection-view',['require','exports','module','lodash','lowercase-ba
 		},
 
 
+		// the event that triggers resort.
 		resortEvent: 'resort',
 
 		/**
@@ -319,8 +325,8 @@ define('bb-collection-view',['require','exports','module','lodash','lowercase-ba
 
 			options = options || {};
 
-			// the event that triggers resort.
-			this.resortEvent = options.resortEvent || this.resortEvent;
+			// set some options on instantiation
+			_.assign(this, _.pick(options, instantiationOptionNames));
 
 			// views by index
 			this.byIndex = [];

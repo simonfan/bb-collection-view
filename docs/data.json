@@ -111,7 +111,7 @@
             "namespaces": {},
             "tag": "module",
             "file": "src/index.js",
-            "line": 17,
+            "line": 22,
             "description": "Object that connects data to the html."
         }
     },
@@ -127,7 +127,7 @@
             "module": "bb-collection-view",
             "namespace": "",
             "file": "src/index.js",
-            "line": 17,
+            "line": 22,
             "is_constructor": 1,
             "params": [
                 {
@@ -310,7 +310,14 @@
         },
         {
             "file": "src/index.js",
-            "line": 35,
+            "line": 17,
+            "description": "Parameters to be set on instantiation",
+            "class": "collectionDock",
+            "module": "bb-collection-view"
+        },
+        {
+            "file": "src/index.js",
+            "line": 41,
             "description": "Initialization logic for collectionDock",
             "itemtype": "method",
             "name": "initializeCollectionView",
@@ -329,6 +336,10 @@
         {
             "message": "Missing item type\nMust return an view object with a 'remove' method.\nThe itemView is responsible for actions",
             "line": " src/__bb-collection-view/item/build.js:41"
+        },
+        {
+            "message": "Missing item type\nParameters to be set on instantiation",
+            "line": " src/index.js:17"
         }
     ]
 }
