@@ -13,13 +13,6 @@
             "fors": {},
             "namespaces": {}
         },
-        "src/__bb-collection-view/item/multi-view.js": {
-            "name": "src/__bb-collection-view/item/multi-view.js",
-            "modules": {},
-            "classes": {},
-            "fors": {},
-            "namespaces": {}
-        },
         "src/__bb-collection-view/item/storage.js": {
             "name": "src/__bb-collection-view/item/storage.js",
             "modules": {},
@@ -148,7 +141,7 @@
     "classitems": [
         {
             "file": "src/__bb-collection-view/item/build.js",
-            "line": 43,
+            "line": 39,
             "description": "Must return an view object with a 'remove' method.\nThe itemView is responsible for actions",
             "class": "collectionDock",
             "module": "collection-dock",
@@ -156,7 +149,7 @@
         },
         {
             "file": "src/__bb-collection-view/item/build.js",
-            "line": 49,
+            "line": 45,
             "description": "Builds the itemvieW.",
             "itemtype": "method",
             "name": "buildItemView",
@@ -170,44 +163,6 @@
             "class": "collectionDock",
             "module": "collection-dock",
             "submodule": "item"
-        },
-        {
-            "file": "src/__bb-collection-view/item/multi-view.js",
-            "line": 7,
-            "description": "Takes an options hash and an array of views.",
-            "itemtype": "method",
-            "name": "initialize",
-            "params": [
-                {
-                    "name": "options",
-                    "description": "[description]",
-                    "type": "[type]"
-                },
-                {
-                    "name": "subviews",
-                    "description": "[description]",
-                    "type": "[type]"
-                }
-            ],
-            "return": {
-                "description": "[description]",
-                "type": "[type]"
-            },
-            "class": "collectionDock",
-            "module": "collection-dock"
-        },
-        {
-            "file": "src/__bb-collection-view/item/multi-view.js",
-            "line": 25,
-            "description": "Invokes the removal method\nfor all the subviews",
-            "itemtype": "method",
-            "name": "remove",
-            "return": {
-                "description": "[description]",
-                "type": "[type]"
-            },
-            "class": "collectionDock",
-            "module": "collection-dock"
         },
         {
             "file": "src/__bb-collection-view/item/storage.js",
@@ -383,7 +338,7 @@
     "warnings": [
         {
             "message": "Missing item type\nMust return an view object with a 'remove' method.\nThe itemView is responsible for actions",
-            "line": " src/__bb-collection-view/item/build.js:43"
+            "line": " src/__bb-collection-view/item/build.js:39"
         },
         {
             "message": "Missing item type\nParameters to be set on instantiation",

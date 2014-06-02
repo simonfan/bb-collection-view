@@ -48,11 +48,7 @@
 				collection: fruits,
 
 				// multi-view
-				itemView  : [
-					delayableView.extend({ delay: 500 }),
-					delayableView.extend({ delay: 1000 }),
-					backbone.view
-				]
+				itemView  : delayableView.extend({ delay: 1000 })
 			});
 
 

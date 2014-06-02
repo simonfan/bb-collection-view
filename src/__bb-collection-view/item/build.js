@@ -14,10 +14,6 @@ define(function (require, exports, module) {
 		backbone = require('lowercase-backbone');
 
 
-		// view that instantiates multiple views.
-	var multiView = require('./multi-view');
-
-
 	exports.itemTemplate = '<div>bb-collection-view item replace "itemTemplate" property</div>';
 
 
@@ -79,21 +75,7 @@ define(function (require, exports, module) {
 		//       instantiate all views.
 		var builder = this.itemView,
 			// var to hold the view.
-			view;
-
-		if (_.isFunction(builder)) {
-			// instantiate
 			view = builder(viewOptions);
-
-		} else if (_.isArray(builder)) {
-
-			// instantiate multiple
-			view = multiView(viewOptions, builder);
-
-			// set a special 'remove' method that invokes the remove method
-			// of all the subviews
-		}
-
 
 		// [5] store
 		this.byIndex.splice(index, 0, view);

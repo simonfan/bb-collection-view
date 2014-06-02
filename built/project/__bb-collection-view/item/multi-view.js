@@ -1,1 +1,0 @@
-define(["require","exports","module","lowercase-backbone","q"],function(e,t,n){var r=e("lowercase-backbone"),i=e("q");n.exports=r.view.extend({initialize:function(t,n){r.view.prototype.initialize.call(this,t),this.subviews=_.map(n,function(e,n){return e(t)})},remove:function(){var t=_.map(this.subviews,function(e,t){return e.remove()});return i.all(t)}})});
