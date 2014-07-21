@@ -153,7 +153,11 @@ define(function (require, exports, module) {
 			this.byIndex = [];
 
 			// Make sure there is a collection
-			var collection = this.collection = options.collection || this.collection || backbone.collection();
+			var collection = this.collection;
+
+			if (!this.collection) {
+				throw new Error(&#x27;No collection given for collection view&#x27;);
+			}
 
 			// events
 			_.bindAll(this, &#x27;handleAdd&#x27;, &#x27;handleRemove&#x27;, &#x27;handleReset&#x27;, &#x27;handleResort&#x27;);
