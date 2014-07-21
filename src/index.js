@@ -55,7 +55,7 @@ define(function (require, exports, module) {
 			this.byIndex = [];
 
 			// Make sure there is a collection
-			var collection = this.collection = options.collection || backbone.collection();
+			var collection = this.collection = options.collection || this.collection || backbone.collection();
 
 			// events
 			_.bindAll(this, 'handleAdd', 'handleRemove', 'handleReset', 'handleResort');
